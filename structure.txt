@@ -1,7 +1,7 @@
 public
   index.php --> pagina iniziale che gestisce il progetto
 config
-  container.php --> contiene il collegamento alle view
+  container.php --> é il contenitore delle dipendenze: contiene cioè le dipendenze di tutte le classi del progetto
   route.php --> contiene lo smistamento delle pagine php in base alle GET
 src
   Controller --> contiene tutti i file con il cuore della pagina: qui si includerà il file di connessione al database, si eseguono
