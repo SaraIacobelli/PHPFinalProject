@@ -15,5 +15,6 @@ src
     article_layout.php
     register_layout.php
     admin_layout.php
+    error_layout.php
   Model
     conn.php --> file di connessione al database
