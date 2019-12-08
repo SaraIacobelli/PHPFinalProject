@@ -1,20 +1,33 @@
 public
-  index.php --> pagina iniziale che gestisce il progetto
+	index.php --> pagina iniziale che gestisce il progetto
+
 config
-  container.php --> é il contenitore delle dipendenze: contiene cioè le dipendenze di tutte le classi del progetto
-  route.php --> contiene lo smistamento delle pagine php in base alle GET
+	container.php --> é il contenitore delle dipendenze: contiene cioè le dipendenze di tutte le classi del progetto
+	route.php --> contiene lo smistamento delle pagine php in base alle GET
+
 src
-  Controller --> contiene tutti i file con il cuore della pagina: qui si includerà il file di connessione al database, si eseguono
-                  le query e si inserisce il collegamento al layout passando gli eventuali parametri richiesti dalle view.
-    home.php
-    article.php
-    register.php
-    admin.php
-  View --> contiene tutti i layout del progetto: è codice html con variabili php il cui valore viene passato nei controller
-    home_layout.php
-    article_layout.php
-    register_layout.php
-    admin_layout.php
-    error_layout.php
-  Model
-    conn.php --> file di connessione al database
+	Controller --> contiene tutti i file con il cuore della pagina: qui si includerà il file di connessione al database, si eseguono le query e si inserisce il collegamento al layout passando gli eventuali parametri richiesti dalle view.
+		Home.php --> pagina contenete l'elenco degli articoli del giorno e un estratto, vicino ad ogniuno ci sarà un tasto che permette di aprire il dettaglio dell'articolo (Article.php).
+			     Nella pagina saranno inoltre presenti il tasto login e il tasto registrazione
+		Article.php --> pagina che contiene il testo dell'articolo nella sua interezza.
+		Register.php --> pagina di registrazione
+		Login.php --> pagina di login
+		Admin.php --> pagina analoga a home.php ma a cui si accede solo dopo il login. Contiene l'elenco degli articolo inseriti dall'utente loggato con due tasti che permettono rispettivamente di modificarlo (Modify.php) e eliminarlo (Delete.php)
+			      Nella pagina sarà inoltre presente un tasto per creare un nuovo articolo (New.php) e un tasto per effettuare il logout
+		New.php-->pagina per la creazione di un nuovo articolo
+		Modify.php-->pagina per la modifica di un articolo
+		Delete.php-->pagina per eliminare un articolo
+	
+	View --> contiene tutti i layout del progetto: è codice html con variabili php il cui valore viene passato nei controller
+		home_layout.php
+		article_layout.php
+		register_layout.php
+		login_layout.php
+		admin_layout.php
+		new_layout.php
+		modify_layout.php
+		delete_layout.php
+	
+	Model
+    		conn.php --> file di connessione al database
+test --> contiene gli unit test (ho lasciato quelli fatti da Zimuel ma vanno cambiati)
