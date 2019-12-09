@@ -1,5 +1,13 @@
 <?php $this->layout('layout', ['title' => 'Home page']) ?>
 
-<h1>Home page</h1>
-<p>Benvenuti nella home page del framework PHP <a href="">SimpleMVC</a></p>
-<p>SimpleMVC è un progetto didattico per insegnare le basi dell'architettura MVC</p>
+
+<h1>Titolo del giornale </h1>
+<p>Benvenuti nel nostro giornale</p>
+<p>Di seguito sono elencati gli articoli del giorno</p>
+<?php for($i=0; $i<10; $i++):?>
+	<h4> <?=$titolo[$i]?></h4>
+	<p> 
+		<?=$dettaglio[$i]?>
+		<a href=".\Article?id=<?=$id[$i] ?>">continua a leggere</a>
+	</p>
+<?php endfor;?>
