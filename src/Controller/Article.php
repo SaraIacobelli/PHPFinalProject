@@ -17,10 +17,22 @@ class Article implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        $id=$_GET['id'];
-        echo $this->plates->render('article_layout', [
-            'titolo' => 'art'.$id,
-            'dettaglio' => 'contenuto del articolo '.$id
-        ]);
+        $path   = $request->getUri()->getPath();
+		$v = explode("/",$path);
+		
+		if(array_key_exists(2,$v) && $v[2]!="")
+		{
+			$titolo=urldecode($v[2])  /*str_replace ( "_", " ", $v[2])*/;
+		
+		
+			echo $this->plates->render('article_layout', [
+				'titolo' => $titolo,
+				'dettaglio' => 'contenuto del articolo selezionato'
+			]);
+		}
+		else
+		{
+			echo $this->plates->render('error_layout');
+		}
     }
 }

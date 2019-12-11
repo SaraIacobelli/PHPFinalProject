@@ -8,6 +8,6 @@
 	<h4> <?=$titolo[$i]?></h4>
 	<p> 
 		<?=$dettaglio[$i]?>
-		<a href=".\Article?id=<?=$id[$i] ?>">continua a leggere</a>
+		<a href=".\Article\<?=urlencode($titolo[$i]) /*str_replace ( " ", "_", $titolo[$i])*/ ?>">continua a leggere</a>
 	</p>
 <?php endfor;?>

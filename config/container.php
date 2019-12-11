@@ -7,4 +7,5 @@ return [
     Engine::class => function(ContainerInterface $c) {
         return new Engine($c->get('view_path'));
     }
+	
 ];

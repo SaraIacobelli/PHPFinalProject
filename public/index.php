@@ -23,6 +23,11 @@ $request = ServerRequestFactory::fromGlobals(
 // Routing
 $path   = $request->getUri()->getPath();
 $method = $request->getMethod();
+
+$v = explode("/",$path);
+if(array_key_exists(2,$v) && $v[2]!="")
+	$path=$v[0]."/".$v[1];
+
 $murl   = sprintf("%s %s", $method, $path);
 
 $routes = require 'config/route.php';
