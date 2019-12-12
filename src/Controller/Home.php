@@ -6,20 +6,45 @@ namespace SimpleMVC\Controller;
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 
+
+
 class Home implements ControllerInterface
 {
     protected $plates;
+	protected $pdo;
 
-    public function __construct(Engine $plates)
+    public function __construct(Engine $plates, \PDO $pdo)
     {
         $this->plates = $plates;
+		$this->pdo = $pdo;
     }
 
     public function execute(ServerRequestInterface $request)
     {
-        echo $this->plates->render('home_layout', [
-            'id' => ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-            'titolo' => ['art 1', 'art2', 'art3', 'art4', 'art5', 'art6', 'art7', 'art8', 'art9', 'art10'],
-            'dettaglio' => ['contenuto del articolo 1', 'contenuto del articolo 2', 'contenuto del articolo 3', 'contenuto del articolo 4', 'contenuto del articolo 5', 'contenuto del articolo 6', 'contenuto del articolo 7', 'contenuto del articolo 8', 'contenuto del articolo 9', 'contenuto del articolo 10']]);
+		$titoli=array();
+		$testi=array();
+		$ids=array();
+		$autori=array();
+
+		$query="Select ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo from articles as ar JOIN authors as au ON ar.author_id=au.author_id";
+			
+		$sth = $this->pdo->prepare($query); 
+		$sth->execute();
+		$n=$sth->rowCount();
+
+		while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) { 
+			array_push($titoli,$row['title']);
+			array_push($testi,$row['testo']);
+			array_push($ids, $row['article_id']);
+			array_push($autori, $row['name']." ".$row['surname']);
+		}
+
+		echo $this->plates->render('home_layout', [
+            'id' => $ids,
+            'titolo' => $titoli,
+			'autore' => $autori,
+            'dettaglio' => $testi,
+			'n' => $n
+			]);
     }
 }

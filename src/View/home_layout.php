@@ -1,13 +1,29 @@
 <?php $this->layout('layout', ['title' => 'Home page']) ?>
 
 
-<h1>Titolo del giornale </h1>
-<p>Benvenuti nel nostro giornale</p>
-<p>Di seguito sono elencati gli articoli del giorno</p>
-<?php for($i=0; $i<10; $i++):?>
+<div  style="display: flex; justify-content: flex-end;">
+	<form action=".\Login">
+		<button type="submit">Login</button>
+	</form>
+	 <form action=".\Register">
+		<button type="submit">Registrazione</button>
+	</form>
+</div>
+<h1 style="text-align: center">Titolo del giornale </h1>
+<h3 style="text-align: center">Articoli del giorno</h3>
+
+<div style="width: 50%; margin: auto;">
+<?php for($i=0; $i<$n; $i++):?>
 	<h4> <?=$titolo[$i]?></h4>
+	
 	<p> 
 		<?=$dettaglio[$i]?>
-		<a href=".\Article\<?=urlencode($titolo[$i]) /*str_replace ( " ", "_", $titolo[$i])*/ ?>">continua a leggere</a>
+		<form action=".\Article\<?=urlencode($titolo[$i])?>">
+			<button type="submit">continua a leggere</button>
+		</form>
+		
 	</p>
+	<p style="text-align: right" ><i>written by: <?=$autore[$i]?></i></p>
+	 <hr>
 <?php endfor;?>
+</div>
