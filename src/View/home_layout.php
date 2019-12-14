@@ -14,10 +14,10 @@
 
 <div style="width: 50%; margin: auto;">
 <?php for($i=0; $i<$n; $i++):?>
-	<h4> <?=$titolo[$i]?></h4>
+	<h4> <?=utf8_encode($titolo[$i])?></h4>
 	
 	<p> 
-		<?=$dettaglio[$i]?>
+		<?=utf8_encode($dettaglio[$i])?>
 		<form action=".\Article\<?=urlencode($titolo[$i])?>">
 			<button type="submit">continua a leggere</button>
 		</form>
