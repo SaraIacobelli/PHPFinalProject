@@ -10,4 +10,10 @@ return [
     'POST /Controllo' => Controller\Controllo::class, // "PHPFinalProject\Controller\controllo",
     'POST /Dati' => Controller\Dati::class, // "PHPFinalProject\Controller\dati",
     'GET /Admin' => Controller\Admin::class, // "PHPFinalProject\Controller\Admin",
+	'GET /Nuovo' => Controller\Nuovo::class, // "PHPFinalProject\Controller\Nuovo",
+	'GET /Modify' => Controller\Modify::class, // "PHPFinalProject\Controller\Modify",
+	'GET /Delete' => Controller\Delete::class, // "PHPFinalProject\Controller\Delete",
+	'POST /NewArticle' => Controller\NewArticle::class, // "PHPFinalProject\Controller\New_Article",
+	'POST /ModifyArticle' => Controller\ModifyArticle::class, // "PHPFinalProject\Controller\Modify_Article",
+	'POST /DeleteArticle' => Controller\DeleteArticle::class, // "PHPFinalProject\Controller\Delete_Article",
 ];

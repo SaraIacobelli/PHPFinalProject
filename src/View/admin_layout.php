@@ -26,7 +26,7 @@
 	<p style="text-align: right" ><i>written by: <?=$autore[$i]?></i></p>
 	 <hr>
 <?php endfor;?>
-<form action=".\New>">
+<form action=".\Nuovo">
 			<button type="submit">crea</button>
 		</form>
 </div>
