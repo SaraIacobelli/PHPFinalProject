@@ -20,23 +20,30 @@ class NewArticle implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-
-            $titolo = $_POST['titolo'];
-            $data = $_POST['data'];
-            $testo = $_POST['testo'];
-            
-            $sql = "INSERT INTO articles (titolo, data, testo)
-            values ($titolo, $data, $testo)";
-            $sth = $this->pdo->prepare($sql);
-            
-            if ($sth->execute())
-            {
-                header("location: Home");
-            }
-            else
-            {
-                header("HTTP/1.1 400");
-                header("location: Admin");
-            }
+		
+		session_start();
+		
+		$query="Select author_id from authors where email = '".$_SESSION['mail']."'";
+		$sth = $this->pdo->prepare($query); 
+		$sth->execute();
+		$row = $sth->fetch(\PDO::FETCH_ASSOC);
+			
+		$titolo = $_POST['titolo'];
+        $d = explode("/",$_POST['data']);
+        $data =$d[2]."-". $d[1]."-". $d[0];
+        $testo = $_POST['testo'];
+		
+		$sql = "INSERT INTO articles (title, content, publication_date, author_id)
+		values ('$titolo', '$testo', '$data', $row[author_id])";
+		$sth2 = $this->pdo->prepare($sql); 
+		if ($sth2->execute())
+		{
+			header("location: Admin");
+		}
+		else
+		{
+			header("HTTP/1.1 400");
+			header("location: Nuovo");
+		}
     }
 }

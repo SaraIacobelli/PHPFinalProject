@@ -7,7 +7,7 @@ namespace SimpleMVC\Controller;
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ModificaArticle implements ControllerInterface
+class ModifyArticle implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
@@ -22,21 +22,21 @@ class ModificaArticle implements ControllerInterface
     {
 
             $titolo = $_POST['titolo'];
-            $data = $_POST['data'];
+			$d = explode("/",$_POST['data']);
+            $data =$d[2]."-". $d[1]."-". $d[0];
             $testo = $_POST['testo'];
-            
-            $sql = "INSERT INTO articles (titolo, data, testo)
-            values ($titolo, $data, $testo)";
+			
+            $sql = "UPDATE articles SET title='$titolo', content='$testo', publication_date='$data' WHERE article_id=$_POST[id]";
             $sth = $this->pdo->prepare($sql);
             
             if ($sth->execute())
             {
-                header("location: Home");
+                header("location: Admin");
             }
-            else
+			else
             {
                 header("HTTP/1.1 400");
-                header("location: Admin");
+                header("location: Modify/".urldecode($titolo));
             }
     }
 }

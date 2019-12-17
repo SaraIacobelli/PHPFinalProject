@@ -26,8 +26,8 @@ class Dati implements ControllerInterface
             $surname = $_POST['surname'];
             $pass = $_POST['psw'];
 
-            $sql = "INSERT INTO authors (name, surname, email, password)
-            values ($name, $surname, $user, $pass)";
+			$sql = "INSERT INTO authors (name, surname, email, password)
+            values ('$name', '$surname', '$user', '$pass')";
             $sth = $this->pdo->prepare($sql);
             
             if ($sth->execute())
@@ -36,8 +36,8 @@ class Dati implements ControllerInterface
             }
             else
             {
-                header("HTTP/1.1 400");
-                header("location: Register");
+               header("HTTP/1.1 401");
+               header("location: Register");
             }
     }
 }

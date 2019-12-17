@@ -14,6 +14,6 @@ return [
 	'GET /Modify' => Controller\Modify::class, // "PHPFinalProject\Controller\Modify",
 	'GET /Delete' => Controller\Delete::class, // "PHPFinalProject\Controller\Delete",
 	'POST /NewArticle' => Controller\NewArticle::class, // "PHPFinalProject\Controller\New_Article",
-	'POST /ModificaArticle' => Controller\ModificaArticle::class, // "PHPFinalProject\Controller\Modify_Article",
-	'POST /EliminaArticle' => Controller\DeleteArticle::class, // "PHPFinalProject\Controller\Delete_Article",
+	'POST /ModifyArticle' => Controller\ModifyArticle::class, // "PHPFinalProject\Controller\Modify_Article",
+	'POST /DeleteArticle' => Controller\DeleteArticle::class, // "PHPFinalProject\Controller\Delete_Article",
 ];

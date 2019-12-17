@@ -19,6 +19,33 @@ class Modify implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-			echo $this->plates->render('modify_layout');
+		$path   = $request->getUri()->getPath();
+		$v = explode("/",$path);
+		
+		if(array_key_exists(2,$v) && $v[2]!="")
+		{
+			$titolo=urldecode($v[2]);
+			
+			$query="Select * from articles where title='".$titolo."'";
+			
+			$sth = $this->pdo->prepare($query); 
+			$sth->execute();
+			$row = $sth->fetch(\PDO::FETCH_ASSOC);
+			
+			$d = explode("-",$row['publication_date']);
+			
+			echo $row['article_id'];
+		
+			echo $this->plates->render('modify_layout', [
+				'titolo' => $titolo,
+				'testo' => $row['content'],
+				'data' => $d[2]."/". $d[1]."/". $d[0],
+				'id' => $row['article_id']
+			]);
 		}
+		else
+		{
+			echo $this->plates->render('error_layout');
+		}
+	}
 }

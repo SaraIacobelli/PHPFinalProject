@@ -19,6 +19,7 @@ class Nuovo implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+			session_start();
 			echo $this->plates->render('newArticle_layout');
-		}
+	}
 }
