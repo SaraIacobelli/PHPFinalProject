@@ -25,9 +25,9 @@ class Home implements ControllerInterface
 		$ids=array();
 		$autori=array();
 
-		$row = $this->pdo->selectCol("articles as ar JOIN authors as au ON ar.author_id=au.author_id", "ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo");
+		$row = $this->pdo->selectCol("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", "ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo");
 		$n=count($row);
-		
+
 		for($i=0; $i<$n; $i++)
 		{
 			array_push($titoli,$row[$i]['title']);

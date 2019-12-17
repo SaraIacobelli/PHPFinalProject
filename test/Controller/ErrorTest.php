@@ -6,18 +6,18 @@ namespace SimpleMVC\Test\Controller;
 use League\Plates\Engine;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use SimpleMVC\Controller\Error404;
+use SimpleMVC\Controller\Error;
 
-final class Error404Test extends TestCase
+final class ErrorTest extends TestCase
 {
     public function setUp(): void
     {
         $this->plates = new Engine('src/View');
-        $this->home = new Error404($this->plates);
+        $this->home = new Error($this->plates);
         $this->request = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
     }
 
-    public function testExecuteRender404View(): void
+    public function testExecuteRenderErrorView(): void
     {
         $this->expectOutputString($this->plates->render('error_layout'));
         $this->home->execute($this->request);
