@@ -20,7 +20,7 @@ class Controllo implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        //session_start();
+        session_start();
 
             $user = $_POST['email'];
             $pass = $_POST['psw'];

@@ -7,7 +7,7 @@ namespace SimpleMVC\Controller;
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 
-class DeleteArticle implements ControllerInterface
+class ModificaArticle implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
@@ -22,9 +22,11 @@ class DeleteArticle implements ControllerInterface
     {
 
             $titolo = $_POST['titolo'];
+            $data = $_POST['data'];
+            $testo = $_POST['testo'];
             
-            $sql = "DELETE articles (titolo)
-            values ($titolo)";
+            $sql = "INSERT INTO articles (titolo, data, testo)
+            values ($titolo, $data, $testo)";
             $sth = $this->pdo->prepare($sql);
             
             if ($sth->execute())

@@ -21,13 +21,18 @@ class Admin implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+		session_start();
+		
 		$titoli=array();
 		$testi=array();
 		$ids=array();
 		$autori=array();
 
-		$query="Select ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo from articles as ar JOIN authors as au ON ar.author_id=au.author_id";//da guardare
-			
+	
+
+		$query="Select ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo 
+		from articles as ar JOIN authors as au ON ar.author_id=au.author_id
+		 where au.email = '".$_SESSION['mail']."'";
 		$sth = $this->pdo->prepare($query); 
 		$sth->execute();
 		$n=$sth->rowCount();
