@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace SimpleMVC\Controller;
@@ -19,6 +20,23 @@ class NewArticle implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-			echo $this->plates->render('newArticle_layout');
-		}
+
+            $titolo = $_POST['titolo'];
+            $data = $_POST['data'];
+            $testo = $_POST['testo'];
+            
+            $sql = "INSERT INTO articles (titolo, data, testo)
+            values ($titolo, $data, $testo)";
+            $sth = $this->pdo->prepare($sql);
+            
+            if ($sth->execute())
+            {
+                header("location: Home");
+            }
+            else
+            {
+                header("HTTP/1.1 400");
+                header("location: Admin");
+            }
+    }
 }

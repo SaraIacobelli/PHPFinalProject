@@ -20,7 +20,6 @@ class Dati implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        //session_start();
 
             $user = $_POST['email'];
             $name = $_POST['name'];
