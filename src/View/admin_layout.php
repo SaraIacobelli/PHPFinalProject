@@ -1,7 +1,7 @@
 <?php $this->layout('layout', ['title' => 'Admin']) ?>
 
-
-<div  style="display: flex; justify-content: flex-end;">
+<div  style="display: flex; justify-content: space-between;">
+	<p>Logged as: <b> <?=$autore[0]?> </b></p>
 	<form action=".\Home">
 		<button type="submit">Logout</button>
 	</form>

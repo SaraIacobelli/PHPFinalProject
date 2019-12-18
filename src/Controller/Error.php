@@ -18,6 +18,11 @@ class Error implements ControllerInterface
     public function execute(ServerRequestInterface $request)
     {
         http_response_code(404);
-        echo $this->plates->render('error_layout');
+        echo $this->plates->render('error_layout', [
+            'errore' => '404',
+			'titolo' => 'Pagina non trovata',
+            'url' => '/',
+			'path' => 'home page'
+			]);
     }
 }

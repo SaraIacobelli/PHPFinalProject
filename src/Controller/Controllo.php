@@ -22,26 +22,33 @@ class Controllo implements ControllerInterface
     {
         session_start();
 
-            $user = $_POST['email'];
-            $pass = $_POST['psw'];
+		$user = $_POST['email'];
+		$pass = $_POST['psw'];
 
-            $sql = "SELECT email, password
-            FROM authors
-            WHERE email = :mail";
-            $sth = $this->pdo->prepare($sql);
-            $sth->bindValue(':mail', $user, \PDO::PARAM_STR);
-            $sth->execute();
-            $result = $sth->fetch(\PDO::FETCH_ASSOC);
+		$sql = "SELECT email, password
+		FROM authors
+		WHERE email = :mail";
+		$sth = $this->pdo->prepare($sql);
+		$sth->bindValue(':mail', $user, \PDO::PARAM_STR);
+		$sth->execute();
+		$result = $sth->fetch(\PDO::FETCH_ASSOC);
 
-            if ($pass==$result['password'])
-            {
-                $_SESSION['mail']=$user;
-                header("location: Admin");
-            }
-            else
-            {
-                header("HTTP/1.1 400");
-                header("location: Login");
-            }
+		if ($pass==$result['password'])
+		{
+			$_SESSION['mail']=$user;
+			header("location: Admin");
+		}
+		else
+		{
+			http_response_code(401);
+			echo $this->plates->render('error_layout', 
+				[
+					'errore' => '401',
+					'titolo' => 'Login fallito',
+					'url' => '/Login',
+					'path' => 'pagina di login'
+				]
+			);
+		}
     }
 }

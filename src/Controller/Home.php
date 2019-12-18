@@ -24,14 +24,20 @@ class Home implements ControllerInterface
 		$testi=array();
 		$ids=array();
 		$autori=array();
-
-		$row = $this->pdo->selectCol("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", "ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo");
+		
+		$row = $this->pdo->selectColumnWhere("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", "ar.article_id, ar.title, au.name, au.surname, ar.content", "publication_date", "=", "'".date('Y-m-d')."'");
 		$n=count($row);
 
 		for($i=0; $i<$n; $i++)
 		{
 			array_push($titoli,$row[$i]['title']);
-			array_push($testi,$row[$i]['testo']);
+			$testo=$row[$i]['content'];
+			if (strlen($testo)>100)
+			{
+				$testo = substr($testo ,0,100);
+				$testo = $testo."...";
+			}
+			array_push($testi, $testo); 
 			array_push($ids, $row[$i]['article_id']);
 			array_push($autori, $row[$i]['name']." ".$row[$i]['surname']);	
 		}
@@ -42,6 +48,6 @@ class Home implements ControllerInterface
 			'autore' => $autori,
             'dettaglio' => $testi,
 			'n' => $n
-			]);
+		]);
     }
 }

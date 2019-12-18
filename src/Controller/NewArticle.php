@@ -42,8 +42,15 @@ class NewArticle implements ControllerInterface
 		}
 		else
 		{
-			header("HTTP/1.1 400");
-			header("location: Nuovo");
+			http_response_code(500);
+			echo $this->plates->render('error_layout', 
+				[
+					'errore' => '500',
+					'titolo' => 'Inserimento fallito',
+					'url' => '/Nuovo',
+					'path' => 'pagina di creazione'
+				]
+			);
 		}
     }
 }

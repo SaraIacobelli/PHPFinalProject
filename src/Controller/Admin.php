@@ -28,18 +28,23 @@ class Admin implements ControllerInterface
 		$ids=array();
 		$autori=array();
 
-	
-
-		$query="Select ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo 
+		$query="Select ar.article_id, ar.title, au.name, au.surname, content
 		from articles as ar JOIN authors as au ON ar.author_id=au.author_id
 		 where au.email = '".$_SESSION['mail']."'";
+
 		$sth = $this->pdo->prepare($query); 
 		$sth->execute();
 		$n=$sth->rowCount();
 
 		while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) { 
 			array_push($titoli,$row['title']);
-			array_push($testi,$row['testo']);
+			$testo=$row['content'];
+			if (strlen($testo)>100)
+			{
+				$testo = substr($testo ,0,100);
+				$testo = $testo."...";
+			}
+			array_push($testi, $testo); 
 			array_push($ids, $row['article_id']);
 			array_push($autori, $row['name']." ".$row['surname']);
 		}

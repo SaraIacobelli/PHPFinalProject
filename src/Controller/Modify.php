@@ -34,8 +34,6 @@ class Modify implements ControllerInterface
 			
 			$d = explode("-",$row['publication_date']);
 			
-			echo $row['article_id'];
-		
 			echo $this->plates->render('modify_layout', [
 				'titolo' => $titolo,
 				'testo' => $row['content'],

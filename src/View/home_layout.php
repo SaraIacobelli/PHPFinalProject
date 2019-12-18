@@ -10,7 +10,7 @@
 	</form>
 </div>
 <h1 style="text-align: center">Titolo del giornale </h1>
-<h3 style="text-align: center">Articoli del giorno</h3>
+<h3 style="text-align: center">Articoli del <?=date('d/m/Y')?></h3>
 
 <div style="width: 50%; margin: auto;">
 

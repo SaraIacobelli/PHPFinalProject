@@ -20,24 +20,31 @@ class Dati implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+		$user = $_POST['email'];
+		$name = $_POST['name'];
+		$surname = $_POST['surname'];
+		$pass = $_POST['psw'];
 
-            $user = $_POST['email'];
-            $name = $_POST['name'];
-            $surname = $_POST['surname'];
-            $pass = $_POST['psw'];
-
-			$sql = "INSERT INTO authors (name, surname, email, password)
-            values ('$name', '$surname', '$user', '$pass')";
-            $sth = $this->pdo->prepare($sql);
-            
-            if ($sth->execute())
-            {
-                header("location: Login");
-            }
-            else
-            {
-               header("HTTP/1.1 401");
-               header("location: Register");
-            }
+		$sql = "INSERT INTO authors (name, surname, email, password)
+		values ('$name', '$surname', '$user', '$pass')";
+		$sth = $this->pdo->prepare($sql);
+		
+		if ($sth->execute())
+		{
+			header("location: Login");
+		}
+		else
+		{
+			http_response_code(500);
+			echo $this->plates->render('error_layout', 
+				[
+					'errore' => '500',
+					'titolo' => 'Inserimento fallito',
+					'url' => '/Register',
+					'path' => 'pagina di registrazione'
+				]
+			);
+		 
+		}
     }
 }

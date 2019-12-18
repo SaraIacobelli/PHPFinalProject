@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Errore 404']) ?>
+<?php $this->layout('layout', ['title' => 'Errore '.$errore ]) ?>
 
-<h1>404 Pagina non trovata</h1>
-<p>Torna alla <a href="/">home page</a></p>
+<h1><?=$errore." ".$titolo ?> </h1>
+<p>Torna alla <a href="<?=$url ?>"><?=$path ?></a></p>
