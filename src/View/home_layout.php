@@ -13,6 +13,7 @@
 <h3 style="text-align: center">Articoli del giorno</h3>
 
 <div style="width: 50%; margin: auto;">
+
 <?php for($i=0; $i<$n; $i++):?>
 	<h4> <?=utf8_encode($titolo[$i])?></h4>
 	

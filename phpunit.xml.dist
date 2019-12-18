@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="SimpleMVC tests">
+            <directory>./test</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+    <!--
+    <dataset>
+    <Articles article_id="1" title="piero angela dice.." content="Hello buddy!" publication_date='15-22-1998' author_id=1/>
+    <<Articles article_id="2" title="Piovono Polpi" content="MMM Polpette!" publication_date='15-22-2008' author_id=2/>
+    </dataset>-->
+</phpunit>
