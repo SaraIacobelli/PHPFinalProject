@@ -25,7 +25,8 @@ final class HomeTest extends TestCase
         $sth = $this->getMockBuilder('PDO_connect')
         ->setMethods(array ('execute','fetchAll'))
         ->getMock();
-        $this->assertEquals($this->row, $this->pdo->selectCol("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", "ar.article_id, ar.title, au.name, au.surname, concat(substring(content,1,100), '...') as testo"));
+        $oggi =date('Y-m-d');
+        $this->assertEquals($this->row, $this->pdo->selectColumnWhere("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", ['ar.article_id', 'ar.title', 'au.name', 'au.surname', 'ar.content'], "publication_date=?", [$oggi]));
         $this->request = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
         
     }
