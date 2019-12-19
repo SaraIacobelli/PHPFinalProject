@@ -33,7 +33,7 @@ class ModifyArticle implements ControllerInterface
 		
 		if ($row)
 		{
-			header("location: Admin");
+			header("location: admin");
 		}
 		else
 		{
@@ -42,7 +42,7 @@ class ModifyArticle implements ControllerInterface
 				[
 					'errore' => '500',
 					'titolo' => 'Aggiornamento del record fallito',
-					'url' => '/Modify/'.urldecode($titolo),
+					'url' => '/modify/'.urldecode($titolo),
 					'path' => 'pagina di modifica'
 				]
 			);

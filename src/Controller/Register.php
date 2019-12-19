@@ -11,10 +11,9 @@ class Register implements ControllerInterface
     protected $plates;
 	protected $pdo;
 
-    public function __construct(Engine $plates, \PDO $pdo)
+    public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-		$this->pdo = $pdo;
     }
 
     public function execute(ServerRequestInterface $request)

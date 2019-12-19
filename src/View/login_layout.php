@@ -1,5 +1,5 @@
 <?php $this->layout('layout', ['title' => 'Login']) ?>
-<form action="Home">
+<form action="home">
 	<button type="submit">Home</button>
 </form>
 <div style="width: 50%; margin: auto;">
@@ -11,7 +11,7 @@
 			
 			<p>Accedi al tuo account</p>
 			<hr>
-			<form name='login' action='./Controllo' method='POST'>
+			<form name='login' action='LoginCheck' method='POST'>
 				<label for="email"><b>Email</b></label>
 				<input type="text" placeholder="Inserisci Email" name="email" required>
 
@@ -20,6 +20,7 @@
 
 				<hr>
 				<button type="submit" class="registerbtn"> Invia dati</button>
+				<p>Non hai un account? <a href="register">Registrati</a>.</p>
 			</form>
 		</div> 
 	</div>

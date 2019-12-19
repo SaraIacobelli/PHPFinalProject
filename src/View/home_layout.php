@@ -2,10 +2,10 @@
 
 
 <div  style="display: flex; justify-content: flex-end;">
-	<form action=".\Login">
+	<form action=".\login">
 		<button type="submit">Login</button>
 	</form>
-	 <form action=".\Register">
+	 <form action=".\register">
 		<button type="submit">Registrazione</button>
 	</form>
 </div>
@@ -19,7 +19,7 @@
 	
 	<p> 
 		<?=utf8_encode($dettaglio[$i])?>
-		<form action=".\Article\<?=urlencode($titolo[$i])?>">
+		<form action=".\article\<?=urlencode($titolo[$i])?>">
 			<button type="submit">continua a leggere</button>
 		</form>
 		

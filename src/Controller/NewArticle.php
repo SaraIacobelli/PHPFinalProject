@@ -39,7 +39,7 @@ class NewArticle implements ControllerInterface
 		
 		if ($insert)
 		{
-			header("location: Admin");
+			header("location: admin");
 		}
 		else
 		{
@@ -48,7 +48,7 @@ class NewArticle implements ControllerInterface
 				[
 					'errore' => '500',
 					'titolo' => 'Inserimento fallito',
-					'url' => '/Nuovo',
+					'url' => '/nuovo',
 					'path' => 'pagina di creazione'
 				]
 			);

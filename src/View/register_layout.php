@@ -1,5 +1,5 @@
 <?php $this->layout('layout', ['title' => 'Register']) ?>
-<form action="Home">
+<form action="home">
 	<button type="submit">Home</button>
 </form>
 <div style="width: 50%; margin: auto;">
@@ -10,7 +10,7 @@
 			
 			<p>Crea il tuo account</p>
 			<hr>
-			<form name='registrazione' action='Dati' method='POST'>
+			<form name='registrazione' action='NewAuthor' method='POST'>
 				<label for="name"><b>Nome</b></label>
 				<input type="text" placeholder="Inserisci nome" name="name" required>
 
@@ -27,7 +27,7 @@
 				<input type="password" placeholder="Ripeti la Password" name="Ripeti-password" required><br>
 				<hr>
 				<button type="submit" class="registerbtn"> Registrati</button><br>
-				<p>Hai già un account? <a href="Login">Accedi</a>.</p>
+				<p>Hai già un account? <a href="login">Accedi</a>.</p>
 			</form>
 		</div>
 	</div>

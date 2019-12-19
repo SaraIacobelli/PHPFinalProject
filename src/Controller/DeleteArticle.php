@@ -27,7 +27,7 @@ class DeleteArticle implements ControllerInterface
 
 		if ($row)
 		{
-			header("location: Admin");
+			header("location: admin");
 		}
 		else
 		{
@@ -36,7 +36,7 @@ class DeleteArticle implements ControllerInterface
 				[
 					'errore' => '500',
 					'titolo' => 'Eliminazione del record fallito',
-					'url' => '/Delete/'.urldecode($titolo),
+					'url' => '/delete/'.urldecode($titolo),
 					'path' => 'pagina di eliminazione'
 				]
 			);

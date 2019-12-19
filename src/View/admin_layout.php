@@ -2,7 +2,7 @@
 
 <div  style="display: flex; justify-content: space-between;">
 	<p>Logged as: <b> <?=$user?> </b></p>
-	<form action=".\Home">
+	<form action=".\home">
 		<button type="submit">Logout</button>
 	</form>
 </div>
@@ -10,7 +10,7 @@
 <h3 style="text-align: center">Articoli del giorno</h3>
 
 <div style="width: 50%; margin: auto;">
-	<form action=".\Nuovo">
+	<form action=".\nuovo">
 		<button type="submit">Crea</button>
 	</form>
 	<?php for($i=0; $i<$n; $i++):?>
@@ -18,10 +18,10 @@
 	
 	<p> 
 		<?=utf8_encode($dettaglio[$i])?>
-		<form action=".\Modify\<?=urlencode($titolo[$i])?>">
+		<form action=".\modify\<?=urlencode($titolo[$i])?>">
 			<button type="submit">modifica</button>
 		</form>
-        <form action=".\Delete\<?=urlencode($titolo[$i])?>">
+        <form action=".\delete\<?=urlencode($titolo[$i])?>">
             <button type="submit">elimina</button>
 		</form>
 		

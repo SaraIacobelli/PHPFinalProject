@@ -8,7 +8,7 @@ use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Model\PDO_connect;
 
-class Controllo implements ControllerInterface
+class LoginCheck implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
@@ -28,22 +28,38 @@ class Controllo implements ControllerInterface
 
 		$row = $this->pdo->selectWhere('authors','email =?' ,[$user]);
 		
-		if (password_verify ($pass, $row[0]['password']))
-		{
-			$_SESSION['mail']=$user;
-			header("location: Admin");
-		}
-		else
+		if(count($row)==0)
 		{
 			http_response_code(401);
 			echo $this->plates->render('error_layout', 
 				[
 					'errore' => '401',
 					'titolo' => 'Login fallito',
-					'url' => '/Login',
+					'url' => '/login',
 					'path' => 'pagina di login'
 				]
 			);
+		}
+		else
+		{
+			
+			if (password_verify ($pass, $row[0]['password']))
+			{
+				$_SESSION['mail']=$user;
+				header("location: admin");
+			}
+			else
+			{
+				http_response_code(401);
+				echo $this->plates->render('error_layout', 
+					[
+						'errore' => '401',
+						'titolo' => 'Login fallito',
+						'url' => '/login',
+						'path' => 'pagina di login'
+					]
+				);
+			}
 		}
     }
 }

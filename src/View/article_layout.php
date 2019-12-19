@@ -1,5 +1,5 @@
 <?php $this->layout('layout', ['title' => 'Dettaglio articolo']) ?>
-<form action=".\..\Home">
+<form action=".\..\home">
 	<button type="submit">Home</button>
 </form>
 <div style="width: 50%; margin: auto;">

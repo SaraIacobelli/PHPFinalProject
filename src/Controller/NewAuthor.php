@@ -8,7 +8,7 @@ use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
 use SimpleMVC\Model\PDO_connect;
 
-class Dati implements ControllerInterface
+class NewAuthor implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
@@ -30,7 +30,7 @@ class Dati implements ControllerInterface
 		
 		if ($row)
 		{
-			header("location: Login");
+			header("location: login");
 		}
 		else
 		{
@@ -39,7 +39,7 @@ class Dati implements ControllerInterface
 				[
 					'errore' => '500',
 					'titolo' => 'Inserimento fallito',
-					'url' => '/Register',
+					'url' => '/register',
 					'path' => 'pagina di registrazione'
 				]
 			);

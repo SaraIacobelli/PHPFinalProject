@@ -11,15 +11,14 @@ class Nuovo implements ControllerInterface
     protected $plates;
 	protected $pdo;
 
-    public function __construct(Engine $plates, \PDO $pdo)
+    public function __construct(Engine $plates)
     {
         $this->plates = $plates;
-		$this->pdo = $pdo;
     }
 
     public function execute(ServerRequestInterface $request)
     {
 			session_start();
-			echo $this->plates->render('newArticle_layout');
+			echo $this->plates->render('new_layout');
 	}
 }
