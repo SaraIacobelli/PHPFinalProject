@@ -6,13 +6,14 @@ namespace SimpleMVC\Controller;
 
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
+use SimpleMVC\Model\PDO_connect;
 
 class DeleteArticle implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
 
-    public function __construct(Engine $plates, \PDO $pdo)
+    public function __construct(Engine $plates, PDO_connect $pdo)
     {
         $this->plates = $plates;
 		$this->pdo = $pdo;
@@ -20,21 +21,26 @@ class DeleteArticle implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+        $titolo = $_POST['titolo'];
 
-            $titolo = $_POST['titolo'];
-            
-            $sql = "DELETE articles (titolo)
-            values ($titolo)";
-            $sth = $this->pdo->prepare($sql);
-            
-            if ($sth->execute())
-            {
-                header("location: Home");
-            }
-            else
-            {
-                header("HTTP/1.1 400");
-                header("location: Admin");
-            }
+		$row = $this->pdo->delete('articles','article_id=?', [$_POST['id']]);
+
+		if ($row)
+		{
+			header("location: Admin");
+		}
+		else
+		{
+			http_response_code(500);
+			echo $this->plates->render('error_layout', 
+				[
+					'errore' => '500',
+					'titolo' => 'Eliminazione del record fallito',
+					'url' => '/Delete/'.urldecode($titolo),
+					'path' => 'pagina di eliminazione'
+				]
+			);
+			
+		}            
     }
 }

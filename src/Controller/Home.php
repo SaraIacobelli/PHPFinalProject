@@ -25,7 +25,11 @@ class Home implements ControllerInterface
 		$ids=array();
 		$autori=array();
 		
-		$row = $this->pdo->selectColumnWhere("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", "ar.article_id, ar.title, au.name, au.surname, ar.content", "publication_date", "=", "'".date('Y-m-d')."'");
+		$oggi =date('Y-m-d');
+		
+		$row = $this->pdo->selectColumnWhere("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", 
+											['ar.article_id', 'ar.title', 'au.name', 'au.surname', 'ar.content'], 
+											"publication_date=?", [$oggi]);
 		$n=count($row);
 
 		for($i=0; $i<$n; $i++)

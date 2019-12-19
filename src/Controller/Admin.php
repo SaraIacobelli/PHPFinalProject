@@ -5,7 +5,7 @@ namespace SimpleMVC\Controller;
 
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
-
+use SimpleMVC\Model\PDO_connect;
 
 
 class Admin implements ControllerInterface
@@ -13,7 +13,7 @@ class Admin implements ControllerInterface
     protected $plates;
 	protected $pdo;
 
-    public function __construct(Engine $plates, \PDO $pdo)
+    public function __construct(Engine $plates, PDO_connect $pdo)
     {
         $this->plates = $plates;
 		$this->pdo = $pdo;
@@ -28,33 +28,36 @@ class Admin implements ControllerInterface
 		$ids=array();
 		$autori=array();
 
-		$query="Select ar.article_id, ar.title, au.name, au.surname, content
-		from articles as ar JOIN authors as au ON ar.author_id=au.author_id
-		 where au.email = '".$_SESSION['mail']."'";
+		$user = $_SESSION['mail'];
+		
+		$utente = $this->pdo->selectWhere('Authors','email =?' ,[$user]);
+		
+		$row = $this->pdo->selectColumnWhere("Articles as ar JOIN Authors as au ON ar.author_id=au.author_id", 
+											['ar.article_id', 'ar.title', 'au.name', 'au.surname', 'ar.content'], 
+											"au.email=?", [$user]);
+		$n=count($row);
 
-		$sth = $this->pdo->prepare($query); 
-		$sth->execute();
-		$n=$sth->rowCount();
-
-		while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) { 
-			array_push($titoli,$row['title']);
-			$testo=$row['content'];
+		for($i=0; $i<$n; $i++)
+		{
+			array_push($titoli,$row[$i]['title']);
+			$testo=$row[$i]['content'];
 			if (strlen($testo)>100)
 			{
 				$testo = substr($testo ,0,100);
 				$testo = $testo."...";
 			}
 			array_push($testi, $testo); 
-			array_push($ids, $row['article_id']);
-			array_push($autori, $row['name']." ".$row['surname']);
+			array_push($ids, $row[$i]['article_id']);
+			array_push($autori, $row[$i]['name']." ".$row[$i]['surname']);	
 		}
-
+		
 		echo $this->plates->render('admin_layout', [
             'id' => $ids,
             'titolo' => $titoli,
 			'autore' => $autori,
             'dettaglio' => $testi,
-			'n' => $n
+			'n' => $n,
+			'user' => $utente[0]['name']." ".$utente[0]['surname']
 			]);
     }
 }

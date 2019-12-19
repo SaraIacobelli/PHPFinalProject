@@ -6,13 +6,14 @@ namespace SimpleMVC\Controller;
 
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
+use SimpleMVC\Model\PDO_connect;
 
 class Dati implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
 
-    public function __construct(Engine $plates, \PDO $pdo)
+    public function __construct(Engine $plates, PDO_connect $pdo)
     {
         $this->plates = $plates;
 		$this->pdo = $pdo;
@@ -23,13 +24,11 @@ class Dati implements ControllerInterface
 		$user = $_POST['email'];
 		$name = $_POST['name'];
 		$surname = $_POST['surname'];
-		$pass = $_POST['psw'];
+		$pass = password_hash($_POST['psw'], PASSWORD_DEFAULT);
 
-		$sql = "INSERT INTO authors (name, surname, email, password)
-		values ('$name', '$surname', '$user', '$pass')";
-		$sth = $this->pdo->prepare($sql);
+		$row = $this->pdo->insert('authors', ['name', 'surname', 'email', 'password'], ['?','?','?','?'], [$name, $surname, $user, $pass]);
 		
-		if ($sth->execute())
+		if ($row)
 		{
 			header("location: Login");
 		}

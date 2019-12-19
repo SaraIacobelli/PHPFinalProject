@@ -37,8 +37,20 @@ public function selectAll($tableName) {
  * array => risultato del fetchAll()
  */
 
-public function selectCol($table, $columns){
-    $this->stmt = $this->conn->prepare('SELECT '.$columns.' FROM '.$table);
+public function selectCol($table, array $columns){
+	
+	$n=count($columns);
+	$col="";
+	
+	for ($i=0; $i<$n; $i++)
+	{
+		if($i==$n-1)
+			$col=$col.$columns[$i];
+		else
+			$col=$col.$columns[$i].", ";
+	}
+	
+    $this->stmt = $this->conn->prepare('SELECT '.$col.' FROM '.$table);
     $this->stmt -> execute();
     $this->dataSet = $this->stmt -> fetchAll();
     return $this->dataSet;
@@ -49,11 +61,11 @@ public function selectCol($table, $columns){
  * SELECT * FROM table WHERE [condizioni]
  * array => risultato del fetchAll()
  */
-public function selectWhere($tableName,$rowName,$operator,$value)  {
+public function selectWhere($tableName,$conditions ,array $parameter)  {
     
-    $this->stmt = $this->conn->prepare('SELECT * FROM '.$tableName.' WHERE '.$rowName.$operator.$value);
+    $this->stmt = $this->conn->prepare('SELECT * FROM '.$tableName.' WHERE '.$conditions);
 
-    $this->stmt -> execute();
+	$this->stmt -> execute($parameter);
 
     $this->dataSet = $this->stmt -> fetchAll();
     return $this->dataSet;
@@ -64,14 +76,29 @@ public function selectWhere($tableName,$rowName,$operator,$value)  {
  * SELECT [campi] FROM table WHERE [condizioni]
  * array => risultato del fetchAll()
  */
-public function selectColumnWhere($tableName, $columns, $rowName ,$operator, $value)  {
+public function selectColumnWhere($tableName, array $columns, $conditions ,array $parameter)  {
     
-    $this->stmt = $this->conn->prepare('SELECT '.$columns.' FROM '.$tableName.' WHERE '.$rowName.$operator.$value);
+    $n=count($columns);
+	$col="";
+	
+	
+	for ($i=0; $i<$n; $i++)
+	{
+		if($i==$n-1)
+			$col=$col.$columns[$i];
+		else
+			$col=$col.$columns[$i].", ";
+	}
 
-    $this->stmt -> execute();
+	$this->stmt = $this->conn->prepare('SELECT '.$col.' FROM '.$tableName.' WHERE '.$conditions);
+	
+    $this->stmt -> execute($parameter);
+	
+	//print_r ($this->stmt ->debugDumpParams());
 
-    $this->dataSet = $this->stmt -> fetchAll();
-    return $this->dataSet;
+    $this->dataSet = $this->stmt ->fetchAll();
+ 
+	return $this->dataSet;
 }
 
 /**
@@ -80,9 +107,32 @@ public function selectColumnWhere($tableName, $columns, $rowName ,$operator, $va
  * boolean => risultato dell’execute()
  */
 
-public function insert($tableName, $columns, $values){
-    $this->stmt = $this->conn->prepare('INSERT INTO '.$tableName.'('.$columns.') VALUES ('.$values.')');
-    $result = $this->stmt -> execute();
+public function insert($tableName, array $columns, array $values, array $parameter){
+	
+	$n=count($columns);
+	$col="";
+
+	for ($i=0; $i<$n; $i++)
+	{
+		if($i==$n-1)
+			$col=$col.$columns[$i];
+		else
+			$col=$col.$columns[$i].", ";
+	}
+
+	$m=count($values);
+	$val="";
+
+	for ($i=0; $i<$m; $i++)
+	{
+		if($i==$m-1)
+			$val=$val.$values[$i];
+		else
+			$val=$val.$values[$i].", ";
+	}
+
+    $this->stmt = $this->conn->prepare('INSERT INTO '.$tableName.'('.$col.') VALUES ('.$val.')');
+    $result = $this->stmt -> execute($parameter);
     if($result){return true;}
     else {return false;}
 }
@@ -102,10 +152,23 @@ public function insert($tableName, $columns, $values){
   *  }
   * }
   */
-public function updateTable($tableName, $columns, $values, $conditions){
-    //$query = 
-    $this->stmt = $this->conn->prepare('UPDATE '.$tableName.' SET ...');
-    $result = $this->stmt -> execute();
+public function updateTable($tableName, array $columns, array $values, $conditions, array $parameter){
+    
+	$n=count($columns);
+	$query="UPDATE ".$tableName." SET ";
+	
+	for ($i=0; $i<$n; $i++)
+	{
+		if($i==$n-1)
+			$query=$query.$columns[$i]."=".$values[$i];
+		else
+			$query=$query.$columns[$i]."=".$values[$i].", ";
+	}
+	
+	$query = $query." WHERE ".$conditions;
+	
+	$this->stmt = $this->conn->prepare($query);
+    $result = $this->stmt -> execute($parameter);
     if($result){return true;}
     else {return false;}
 }
@@ -117,17 +180,17 @@ public function updateTable($tableName, $columns, $values, $conditions){
  * boolean => risultato dell’execute()
  */
 
-public function delete($tableName,$conditions){
+public function delete($tableName,$conditions, array $parameter){
     $this->stmt = $this->conn->prepare('DELETE FROM '.$tableName.' WHERE '.$conditions);
-    $result = $this->stmt -> execute();
+    $result = $this->stmt -> execute($parameter);
     if($result){return true;}
     else {return false;}
 }
 
-//E il male assoluto!
-public function query($query)  {
+//query generica
+public function query($query, array $parameter){
     $this->stmt = $this->conn->prepare($query);
-    $this->stmt -> execute();
+    $this->stmt -> execute($parameter);
 
     $this->dataSet = $this->stmt -> fetchAll();
 

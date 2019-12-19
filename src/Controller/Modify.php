@@ -5,13 +5,14 @@ namespace SimpleMVC\Controller;
 
 use League\Plates\Engine;
 use Psr\Http\Message\ServerRequestInterface;
+use SimpleMVC\Model\PDO_connect;
 
 class Modify implements ControllerInterface
 {
     protected $plates;
 	protected $pdo;
 
-    public function __construct(Engine $plates, \PDO $pdo)
+    public function __construct(Engine $plates, PDO_connect $pdo)
     {
         $this->plates = $plates;
 		$this->pdo = $pdo;
@@ -26,19 +27,15 @@ class Modify implements ControllerInterface
 		{
 			$titolo=urldecode($v[2]);
 			
-			$query="Select * from articles where title='".$titolo."'";
+			$row = $this->pdo->selectWhere('articles','title =?' ,[$titolo]);
 			
-			$sth = $this->pdo->prepare($query); 
-			$sth->execute();
-			$row = $sth->fetch(\PDO::FETCH_ASSOC);
-			
-			$d = explode("-",$row['publication_date']);
+			$d = explode("-",$row[0]['publication_date']);
 			
 			echo $this->plates->render('modify_layout', [
 				'titolo' => $titolo,
-				'testo' => $row['content'],
+				'testo' => $row[0]['content'],
 				'data' => $d[2]."/". $d[1]."/". $d[0],
-				'id' => $row['article_id']
+				'id' => $row[0]['article_id']
 			]);
 		}
 		else
