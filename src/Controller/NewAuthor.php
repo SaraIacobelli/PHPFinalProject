@@ -26,7 +26,7 @@ class NewAuthor implements ControllerInterface
 		$surname = $_POST['surname'];
 		$pass = password_hash($_POST['psw'], PASSWORD_DEFAULT);
 
-		$row = $this->pdo->insert('authors', ['name', 'surname', 'email', 'password'], ['?','?','?','?'], [$name, $surname, $user, $pass]);
+		$row = $this->pdo->insert('Authors', ['name', 'surname', 'email', 'password'], ['?','?','?','?'], [$name, $surname, $user, $pass]);
 		
 		if ($row)
 		{

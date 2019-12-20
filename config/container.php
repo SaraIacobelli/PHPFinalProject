@@ -15,6 +15,6 @@ return [
 			return new \PDO($c->get('dsn'), $c->get('user'), $c->get('password'));
 	},
 	PDO_connect::class => function(ContainerInterface $c) {
-		return new PDO_connect($c->get(\PDO::class));
+		return new PDO_connect($c->get(PDO::class));
 	}
 ];

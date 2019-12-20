@@ -19,7 +19,10 @@ final class ErrorTest extends TestCase
 
     public function testExecuteRenderErrorView(): void
     {
-        $this->expectOutputString($this->plates->render('error_layout'));
+        $this->expectOutputString($this->plates->render('error_layout',['errore' => '404',
+        'titolo' => 'Pagina non trovata',
+        'url' => '/',
+        'path' => 'home page']));
         $this->home->execute($this->request);
 
         $this->assertEquals(404, http_response_code());
