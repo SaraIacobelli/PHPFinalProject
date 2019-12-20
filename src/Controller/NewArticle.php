@@ -30,10 +30,10 @@ class NewArticle implements ControllerInterface
 		
 		$row = $this->pdo->selectColumnWhere("authors", ['author_id'], "email=?", [$user]);
 		
-		$titolo = $_POST['titolo'];
-        $d = explode("/",$_POST['data']);
+		$titolo = $request->getParsedBody()['titolo'];
+        $d = explode("/",$request->getParsedBody()['data']);
         $data =$d[2]."-". $d[1]."-". $d[0];
-        $testo = $_POST['testo'];
+        $testo = $request->getParsedBody()['testo'];
 		
 		$insert = $this->pdo->insert('articles', ['title', 'content', 'publication_date', 'author_id'], ['?','?','?','?'], [$titolo, $testo, $data, $row[0]['author_id']]);
 		

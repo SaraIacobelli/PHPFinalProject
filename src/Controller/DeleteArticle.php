@@ -21,9 +21,9 @@ class DeleteArticle implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        $titolo = $_POST['titolo'];
+        $titolo = $request->getParsedBody()['titolo'];
 
-		$row = $this->pdo->delete('articles','article_id=?', [$_POST['id']]);
+		$row = $this->pdo->delete('articles','article_id=?', [$request->getParsedBody()['id']]);
 
 		if ($row)
 		{

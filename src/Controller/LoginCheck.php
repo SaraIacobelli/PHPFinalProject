@@ -23,8 +23,8 @@ class LoginCheck implements ControllerInterface
     {
         session_start();
 
-		$user = $_POST['email'];
-		$pass = $_POST['psw'];
+		$user = $request->getParsedBody()['email'];
+		$pass = $request->getParsedBody()['psw'];
 
 		$row = $this->pdo->selectWhere('authors','email =?' ,[$user]);
 		

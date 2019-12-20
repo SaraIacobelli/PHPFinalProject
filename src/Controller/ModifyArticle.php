@@ -22,12 +22,12 @@ class ModifyArticle implements ControllerInterface
     public function execute(ServerRequestInterface $request)
     {
 
-		$titolo = $_POST['titolo'];
-		$d = explode("/",$_POST['data']);
+		$titolo = $request->getParsedBody()['titolo'];
+		$d = explode("/",$request->getParsedBody()['data']);
 		$data =$d[2]."-". $d[1]."-". $d[0];
-		$testo = $_POST['testo'];
+		$testo = $request->getParsedBody()['testo'];
 		
-		$id= $_POST['id'];
+		$id= $request->getParsedBody()['id'];
 		
 		$row = $this->pdo->updateTable('articles', ['title', 'content', 'publication_date'], ['?','?','?'], 'article_id=?', [$titolo, $testo, $data, $id]);
 		

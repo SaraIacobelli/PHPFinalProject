@@ -21,10 +21,10 @@ class NewAuthor implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-		$user = $_POST['email'];
-		$name = $_POST['name'];
-		$surname = $_POST['surname'];
-		$pass = password_hash($_POST['psw'], PASSWORD_DEFAULT);
+		$user = $request->getParsedBody()['email'];
+		$name = $request->getParsedBody()['name'];
+		$surname = $request->getParsedBody()['surname'];
+		$pass = password_hash($request->getParsedBody()['psw'], PASSWORD_DEFAULT);
 
 		$row = $this->pdo->insert('Authors', ['name', 'surname', 'email', 'password'], ['?','?','?','?'], [$name, $surname, $user, $pass]);
 		

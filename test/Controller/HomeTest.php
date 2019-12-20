@@ -44,9 +44,7 @@ final class HomeTest extends TestCase
         $this->assertEquals($this->row, $this->pdo->selectColumnWhere("param0", 
         ['param1', 'param2', 'param3', 'param4', 'param5'], 
         "param6", ['param7']));
-
-        $this->n=count($this->row);
-
+		
         for($this->i=0; $this->i<$this->n; $this->i++)
 		{
 			array_push($this->titoli,$this->row[$this->i]['title']);
